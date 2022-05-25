@@ -29,7 +29,6 @@ const active = ref(3)
 </script>
 <style lang="less">
 .root {
-    height: 600px;
     width: 50vw;
     margin-left: 25vw;
     margin-top: 10vh;

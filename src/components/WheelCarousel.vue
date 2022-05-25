@@ -47,6 +47,7 @@ const bounds = ref({
     maxRotation: 360
 })
 const snapPoints = ref(null)
+const minHeight = ref(0)
 provide('active', modelValue)
 provide('info', info)
 provide('progress', progress)
@@ -56,6 +57,7 @@ function init() {
     const segments = component.value.getElementsByClassName('segment')
     let rotation = 0
     let index = 0
+    minHeight.value = 0
     for (const segment of segments) {
         const segmentAngle = 180 * segment.offsetWidth / (Math.PI * (radius.value - segment.offsetHeight))
         rotation += segmentAngle / 2
@@ -79,6 +81,10 @@ function init() {
         info.value[index].centerAngle = info.value[index].startAngle + (info.value[index].endAngle - info.value[index].startAngle) / 2
         const translation = radius.value - Math.sqrt(Math.pow(radius.value, 2) - Math.pow(segment.offsetWidth / 2, 2))
         segment.style.setProperty('--translation', translation + 'px')
+        const currentHeight = segment.offsetHeight + translation * 2
+        if (currentHeight > minHeight.value) {
+            minHeight.value = currentHeight
+        }
         index++
     }
     let sliderAngle = bounds.value.maxRotation - bounds.value.minRotation
@@ -158,6 +164,7 @@ function wheel(e) {
     --radius: calc(v-bind(radius) * 1px);
     --diameter: calc(v-bind(radius) * 2px);
 
+    min-height: calc(v-bind(minHeight) * 1px);
     width: 100%;
     height: 100%;
     overflow: hidden;
