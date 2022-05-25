@@ -1,0 +1,33 @@
+{
+  "name": "vue-wheel-carousel",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "dev": "vite --host",
+    "build": "vite build",
+    "serve": "vite preview",
+    "prepare": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/almero-digital-marketing/vue-wheel-carousel.git"
+  },
+  "homepage": "https://github.com/almero-digital-marketing/vue-wheel-carousel#readme",
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/vue-wheelcarousel.umd.js",
+  "module": "./dist/vue-wheelcarousel.es.js",
+  "peerDependencies": {
+    "gsap": "^3.7.1",
+    "gsap-external-plugins": "^1.0.1",
+    "vue": "^3.2.1",
+    "vue-gsap-draggable": "^1.1.7"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^1.6.1",
+    "@vue/compiler-sfc": "^3.2.6",
+    "less": "^4.1.2",
+    "vite": "^2.5.4"
+  }
+}
