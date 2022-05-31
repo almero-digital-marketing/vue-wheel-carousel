@@ -1,6 +1,6 @@
 {
   "name": "vue-wheel-carousel",
-  "version": "1.0.2",
+  "version": "2.0.0",
   "description": "",
   "scripts": {
     "dev": "vite --host",
@@ -20,9 +20,8 @@
   "module": "./dist/vue-wheelcarousel.es.js",
   "peerDependencies": {
     "gsap": "^3.7.1",
-    "gsap-external-plugins": "^1.0.1",
     "vue": "^3.2.1",
-    "vue-gsap-draggable": "^1.1.7"
+    "vue-overflow-carousel": "^3.1.7"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^1.6.1",

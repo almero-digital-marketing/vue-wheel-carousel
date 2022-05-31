@@ -14,7 +14,7 @@ export default defineConfig({
     rollupOptions: {
       // make sure to externalize deps that shouldn't be bundled
       // into your library
-      external: ['vue', 'gsap', 'gsap-external-plugins'],
+      external: ['vue', 'gsap', 'vue-overflow-carousel',],
       output: {
         exports: 'named',
         // Provide global variables to use in the UMD build
@@ -22,7 +22,7 @@ export default defineConfig({
         globals: {
           vue: 'Vue',
           gsap: 'Gsap',
-          'gsap-external-plugins': 'GsapExternalPlugins'
+          'vue-overflow-carousel': 'VueOverflowCarousel',
         }
       }
     }

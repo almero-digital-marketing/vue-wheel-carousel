@@ -1,15 +1,6 @@
 <template>
     <div class="root">
-        <div class="counter">
-            {{ active }} 
-            <button @click="active--">Prev</button>
-            &nbsp;
-            <button @click="active++">Next</button>
-            &nbsp;
-            <button @click="active = 0">First</button>
-        </div>
-        <br><br>
-        <wheel-carousel v-model="active">
+        <wheel v-model="active">
             <segment v-slot="segment">0 <strong>{{segment.active}} {{segment.progress}}</strong> {{ segment.info }}</segment>
             <segment v-slot="segment">1 <strong>{{segment.active}} {{segment.progress}}</strong> {{ segment.info }}</segment>
             <segment v-slot="segment">2 <strong>{{segment.active}} {{segment.progress}}</strong> {{ segment.info }}</segment>
@@ -20,7 +11,7 @@
             <segment v-slot="segment">7 <strong>{{segment.active}} {{segment.progress}}</strong> {{ segment.info }}</segment>
             <segment v-slot="segment">8 <strong>{{segment.active}} {{segment.progress}}</strong> {{ segment.info }}</segment>
             <segment v-slot="segment">9 <strong>{{segment.active}} {{segment.progress}}</strong> {{ segment.info }}</segment>
-        </wheel-carousel>
+        </wheel>
     </div>
 </template>
 <script setup>
@@ -28,6 +19,12 @@ import { ref } from 'vue'
 const active = ref(3)
 </script>
 <style lang="less">
+* {
+    box-shadow: border-box;
+}
+body {
+    min-height: 300vh;
+}
 .root {
     width: 50vw;
     margin-left: 25vw;
@@ -39,13 +36,20 @@ const active = ref(3)
 .circle {
     border: 1px solid green;
 }
+.circle::before {
+    border: 1px solid green;
+}
 .wheel {
     border: 1px solid blue;
+}
+.slide .item {
+    box-shadow: 0 0 0 1px darkgrey;
+    // border: 1px solid lightgrey;
 }
 .segment {
     width: 240px;
     height: 480px;
-    border: 1px solid yellow;
+    background-color: rgba(0,0,0,.1);
 
     &:nth-child(2) {
         width: 320px;
@@ -58,7 +62,7 @@ const active = ref(3)
         width: 120px;
     }
     &.active {
-        border: 1px solid orange;
+        background-color: orange;
     }
 }
 .info {

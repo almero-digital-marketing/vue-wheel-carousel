@@ -1,4 +1,4 @@
-import WheelCarousel from './components/WheelCarousel.vue'
+import Wheel from './components/Wheel.vue'
 import Segment from './components/Segment.vue'
 
-export { WheelCarousel, Segment }
+export { Wheel, Segment }
