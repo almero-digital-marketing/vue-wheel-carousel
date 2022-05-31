@@ -1,7 +1,6 @@
 <template>
     <div class="wheel" ref="component">
         <carousel 
-            gap="0px" 
             :capture-scroll="captureScroll" 
             :center="true" 
             :center-first="true"
