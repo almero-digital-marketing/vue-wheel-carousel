@@ -2,7 +2,12 @@
     <div class="root">
         <button @click="addSegments">Add</button> <button @click="goTo">Go To</button>
         <wheel v-model="active" ref="carousel">
-            <segment v-for="(segment, index) of segments" v-slot="item" :key="index">{{ index }} <strong>{{item.active}} {{item.progress}}</strong> {{ item.info }}</segment>
+            <segment v-for="(segment, index) of segments" v-slot="item" :key="index" :style="{
+                width: segment.width + 'px',
+                height: segment.height + 'px'
+            }">
+                {{ index }} <strong>{{item.active}} {{item.progress}}</strong> {{ item.info }}
+            </segment>
         </wheel>
     </div>
 </template>
@@ -11,7 +16,7 @@ import { ref } from 'vue'
 const active = ref(3)
 const segmentValues = Array.from(new Array(10), () => {
     return {
-        width: 240 + Math.random() * 320,
+        width: 60 + Math.random() * 320,
         height: 240 + Math.random() * 320,
     }
 })
@@ -59,16 +64,6 @@ body {
     height: 480px;
     background-color: rgba(0,0,0,.1);
 
-    &:nth-child(2) {
-        width: 320px;
-        height: 540px;
-    }
-    &:nth-child(3) {
-        height: 240px;
-    }
-    &:nth-child(4) {
-        width: 120px;
-    }
     &.active {
         background-color: orange;
     }
