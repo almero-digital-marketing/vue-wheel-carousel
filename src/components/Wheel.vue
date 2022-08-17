@@ -26,12 +26,13 @@
     </div>
 </template>
 <script setup>
-import { ref, toRefs, onMounted, watch, provide } from 'vue'
+import { ref, toRefs, onMounted, watch, provide, onBeforeUnmount } from 'vue'
 import 'vue-overflow-carousel/dist/style.css'
 import { Carousel, Slide } from 'vue-overflow-carousel'
+import Segment from './Segment.vue'
 import { gsap } from 'gsap'
+import debounce from 'debounce'
 
-const emit = defineEmits(['update:modelValue'])
 const props = defineProps({
     captureScroll: {
       type: Boolean,
@@ -45,6 +46,10 @@ const props = defineProps({
         type: Number,
         default: 3000
     },
+    items: {
+        type: Array,
+        default: []
+    }
 })
 
 const { radius, duration } = toRefs(props)
@@ -99,11 +104,23 @@ function updateLayout() {
             minHeight.value = currentHeight
         }
         index++
+        
+        segment.setAttribute('ready', '')
     }
 }
 
-onMounted(updateLayout)
+let mutationObserver = new MutationObserver(debounce(updateLayout, 100))
+onMounted(() => {
+    updateLayout()
+    mutationObserver.observe(circle.value, {
+        childList: true
+    })
+})
 watch(radius, updateLayout)
+
+onBeforeUnmount(() => {
+    mutationObserver.disconnect()
+})
 
 </script>
 <style lang="less" scoped>
@@ -144,6 +161,10 @@ watch(radius, updateLayout)
             left: calc(50%);
             transform-origin: center var(--radius);
             transform: translateX(-50%) rotate(var(--rotation)) translateY(var(--translation));
+            visibility: hidden;
+            &[ready] {
+                visibility: visible;
+            }
         }
     }
 

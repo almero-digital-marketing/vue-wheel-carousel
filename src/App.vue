@@ -1,22 +1,25 @@
 <template>
     <div class="root">
+        <button @click="addSegments">Add</button>
         <wheel v-model="active">
-            <segment v-slot="segment">0 <strong>{{segment.active}} {{segment.progress}}</strong> {{ segment.info }}</segment>
-            <segment v-slot="segment">1 <strong>{{segment.active}} {{segment.progress}}</strong> {{ segment.info }}</segment>
-            <segment v-slot="segment">2 <strong>{{segment.active}} {{segment.progress}}</strong> {{ segment.info }}</segment>
-            <segment v-slot="segment">3 <strong>{{segment.active}} {{segment.progress}}</strong> {{ segment.info }}</segment>
-            <segment v-slot="segment">4 <strong>{{segment.active}} {{segment.progress}}</strong> {{ segment.info }}</segment>
-            <segment v-slot="segment">5 <strong>{{segment.active}} {{segment.progress}}</strong> {{ segment.info }}</segment>
-            <segment v-slot="segment">6 <strong>{{segment.active}} {{segment.progress}}</strong> {{ segment.info }}</segment>
-            <segment v-slot="segment">7 <strong>{{segment.active}} {{segment.progress}}</strong> {{ segment.info }}</segment>
-            <segment v-slot="segment">8 <strong>{{segment.active}} {{segment.progress}}</strong> {{ segment.info }}</segment>
-            <segment v-slot="segment">9 <strong>{{segment.active}} {{segment.progress}}</strong> {{ segment.info }}</segment>
+            <segment v-for="(segment, index) of segments" v-slot="item" :key="index">{{ index }} <strong>{{item.active}} {{item.progress}}</strong> {{ item.info }}</segment>
         </wheel>
     </div>
 </template>
 <script setup>
 import { ref } from 'vue'
 const active = ref(3)
+const segmentValues = Array.from(new Array(10), () => {
+    return {
+        width: 240 + Math.random() * 320,
+        height: 240 + Math.random() * 320,
+    }
+})
+const segments = ref(segmentValues)
+
+function addSegments() {
+    segments.value.push(...segmentValues)
+}
 </script>
 <style lang="less">
 * {
