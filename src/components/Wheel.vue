@@ -1,6 +1,7 @@
 <template>
     <div class="wheel" ref="component">
         <carousel 
+            ref="overflowCarousel"
             :capture-scroll="captureScroll" 
             :center="true" 
             :center-first="true"
@@ -54,11 +55,17 @@ const props = defineProps({
 
 const { radius, duration } = toRefs(props)
 const component = ref(null)
+const overflowCarousel = ref(null)
 const circle = ref(null)
 const info = ref([])
 const minHeight = ref(0)
 
 provide('info', info)
+defineExpose({ 
+    goTo(index, force) {
+        overflowCarousel.value.goTo(index, force)
+    }
+})
 
 function onProgress(progress) {
     const minRotation = info.value[0].rotation
@@ -104,7 +111,7 @@ function updateLayout() {
             minHeight.value = currentHeight
         }
         index++
-        
+
         segment.setAttribute('ready', '')
     }
 }
